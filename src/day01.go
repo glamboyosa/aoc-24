@@ -2,20 +2,11 @@ package main
 
 import (
 	"bufio"
-	"fmt"
-	"os"
 	"slices"
 	"strconv"
 	"strings"
 )
 
-func readInput() string {
-	data, err := os.ReadFile("./inputs/day01.txt")
-	if err != nil {
-		panic(err)
-	}
-	return strings.TrimSpace(string(data))
-}
 func getPairs(input string) ([]int, []int) {
 	scanner := bufio.NewScanner(strings.NewReader(input))
 	left := []int{}
@@ -45,12 +36,4 @@ func totalDistanceBetweenPairs(left []int, right []int) int {
 		total += right[i] + v
 	}
 	return total
-}
-func main() {
-	fmt.Println("Day 01")
-	input := readInput()
-	left, right := getPairs(input)
-	left, right = sortPairsBySmallest(left, right)
-	totalDistance := totalDistanceBetweenPairs(left, right)
-	fmt.Println("Total distance between pairs", totalDistance)
 }

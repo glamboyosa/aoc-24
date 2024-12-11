@@ -12,21 +12,19 @@ SOLUTIONS := $(wildcard $(SRC_DIR)/day*.go)
 
 # Default target runs all days
 all: $(SOLUTIONS)
-	@for solution in $(SOLUTIONS); do \
-		echo "\nRunning $$solution..."; \
-		$(GO) run $$solution; \
+	@for day in $(wildcard $(SRC_DIR)/day*.go); do \
+		echo "\nRunning $${day}..."; \
+		$(GO) run $(SRC_DIR)/*.go -day=$$(basename $${day} .go); \
 	done
 
 # Run a specific day (usage: make run-01 or make run-1 for day 1)
 run-%: 
-	@DAY_FILE=$(SRC_DIR)/day$(shell printf %02d $(patsubst run-%,%,$@)).go; \
-	echo "Looking for file: $$DAY_FILE"; \
-	if [ -f "$$DAY_FILE" ]; then \
-		echo "Running Day $(patsubst run-%,%,$@)..."; \
-		$(GO) run "$$DAY_FILE"; \
+	@DAY=day$(shell printf %02d $(patsubst run-%,%,$@)); \
+	if [ -f "$(SRC_DIR)/$$DAY.go" ]; then \
+		echo "Running $$DAY..."; \
+		$(GO) run $(SRC_DIR)/*.go -day=$$DAY; \
 	else \
-		echo "Error: Source file $$DAY_FILE does not exist"; \
-		ls -l $(SRC_DIR)/; \
+		echo "Error: Source file $$DAY.go does not exist"; \
 		exit 1; \
 	fi
 
