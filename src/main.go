@@ -23,9 +23,9 @@ func main() {
 	case "day02":
 		fmt.Println("Day 02")
 		input := readInput("day02")
-		left, right := getSafetyReport(input)
+		numberSafeReports := getSafetyReport(input)
 		// Add your day 2 logic here
-		fmt.Println("Safety report processed", len(left), len(right))
+		fmt.Println("Number of safe reports", numberSafeReports)
 
 	default:
 		if strings.TrimSpace(*dayFlag) == "" {
